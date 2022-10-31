@@ -6,6 +6,7 @@ import {
   } from "react-router-dom";
 import Home from '../Page/Home';
 import Header from '../Page/Header';
+import Blog from '../Page/Blog/Blog';
 
 export const Router = () => {
   return (
@@ -13,6 +14,7 @@ export const Router = () => {
       <Header/>
       <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/blog' element={<Blog/>}/>
       </Routes>
     </BrowserRouter>
   )
