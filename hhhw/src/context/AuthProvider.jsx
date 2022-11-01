@@ -35,20 +35,20 @@ export const AuthProvider = ( { children }) => {
   const signup = async(email, password) => {
     try{
       await createUserWithEmailAndPassword(auth, email, password)
-      .then(()=>{
-        auth.collection('Users').doc(auth.currentUser.uid)
-        .set({
-            fname: '',
-            gender: '',
-            age: 20,
-            email: email,
-            tel: '',
-            address: '',
-            createAt: auth.Timestamp.fromDate(new Date()),
-            userImg: null
-        })
-      .catch(error=> console.log('데이터저장중 에러발생', error))  
-      })
+      // .then(()=>{
+      //   auth.collection('Users').doc(auth.currentUser.uid)
+      //   .set({
+      //       fname: '',
+      //       gender: '',
+      //       age: 20,
+      //       email: email,
+      //       tel: '',
+      //       address: '',
+      //       createAt: auth.Timestamp.fromDate(new Date()),
+      //       userImg: null
+      //   })
+      // .catch(error=> console.log('데이터저장중 에러발생', error))  
+      // })
     }catch(e){
       console.log(e)
     }

@@ -73,19 +73,19 @@ const SignUpPage = () => {
                 <input type="email" className="border p-3 text-center" onChange={(e)=>EmailCheck(e.target.value)}/>
             </div>
             {email ? !!echeck ? <></>:
-               <p class="text-red-600">이메일 형식이 옳바르지 않습니다.</p>:<></>
+               <p className="text-red-600">이메일 형식이 옳바르지 않습니다.</p>:<></>
             }
-            <button className='border bg-blue-800 
+            {/* <button className='border bg-blue-800 
                             hover:bg-blue-500 w-1/3 p-1 my-2 text-white'
                 >
                 이메일 확인
-            </button>
+            </button> */}
             <div className='flex flex-col py-2'>
                 <label className='py-2 font-medium'>비밀번호</label>
                 <input type="password" className="border p-3 text-center" onChange={(e)=>PasswordCheck(e.target.value)}/>
             </div>
             {password ? pcheck ? <></> :
-                <p class="text-red-600">
+                <p className="text-red-600">
                     비밀번호 형식은 영어, 숫자, 문자 포함 8자 이상 16자 이하입니다.
                 </p>:<></>
             }
@@ -95,12 +95,12 @@ const SignUpPage = () => {
             </div>
 
             {repassword ? pcheck ? rpcheck  ? <></>:
-                <p class="text-red-600">비밀번호가 일치하지 않습니다.</p>
-                : <p class="text-red-600">비밀번호를 먼저 확인 해주세요</p> : <></>
+                <p className="text-red-600">비밀번호가 일치하지 않습니다.</p>
+                : <p className="text-red-600">비밀번호를 먼저 확인 해주세요</p> : <></>
             }
 
             {echeck && pcheck && rpcheck ?
-                <button type="submit" onClick={handleSignup()} className='border bg-blue-800 
+                <button type="button" onClick={handleSignup} className='border bg-blue-800 
                             hover:bg-blue-500 w-full p-4 my-2 text-white'>가입</button>
                 :<button disabled className='border bg-gray-300 w-full p-4 my-2 text-white'>가입</button>
             }
