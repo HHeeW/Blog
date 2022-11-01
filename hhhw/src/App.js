@@ -1,9 +1,9 @@
 import React from 'react'
-import { Router } from './Router/Router'
+import Providers from './Router/Providers'
 
 const App = () => {
   return (
-    <Router/>
+    <Providers/>
   )
 }
 

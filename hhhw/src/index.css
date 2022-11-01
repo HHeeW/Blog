@@ -3,13 +3,16 @@
 @tailwind utilities;
 
 @layer components {
-    .b-1{
-        @apply max-w-6xl h-[400px] p-3 mx-auto border-4 rounded-xl border-white
-    }
-    .b-2{
-        @apply w-1/2 h-[400px] p-3 border-4 rounded-xl border-white
-    }
-    .b-3 {
-      @apply w-1/3 h-[400px] p-3 border-4 rounded-xl border-white;
-    }
+  .container{
+   @apply max-w-6xl mx-auto bg-slate-200 
   }
+  .b-1{
+      @apply max-w-6xl h-[400px] p-3 mx-auto border-4 rounded-xl border-white
+  }
+  .b-2{
+      @apply w-1/2 h-[400px] p-3 border-4 rounded-xl border-white
+  }
+  .b-3 {
+    @apply w-1/3 h-[400px] p-3 border-4 rounded-xl border-white;
+  }
+}

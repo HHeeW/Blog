@@ -4,7 +4,7 @@ const Blog = () => {
   return (
     <div className='max-w-6xl mx-auto bg-slate-200'>
         <div className='b-1 h-[200px]'>
-            위치
+            위치 || 리스트
         </div>
         <div className='flex flex-col space-y-3'>
             <div className='flex space-x-3'>

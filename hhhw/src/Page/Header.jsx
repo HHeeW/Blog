@@ -6,7 +6,7 @@ import {
 
 const Header = () => {
   return (
-    <header className='w-full h-14 flex justify-center bg-gray-400'>
+    <div className='w-full h-14 flex justify-center bg-gray-400'>
         <div className='w-3/4 max-w-6xl mx-auto flex justify-between items-center text-xl text-white'>
           
           <div className='w-1/5 h-full'>
@@ -35,14 +35,14 @@ const Header = () => {
           </div>
           <div className='w-1/5'>
             <div className='flex justify-end'>
-              <Link to={'/'}>
+              <Link to={'/signin'}>
                 <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>로그인</p>
               </Link>
             </div>
           </div>
 
         </div>
-    </header>
+    </div>
   )
 }
 

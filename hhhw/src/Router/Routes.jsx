@@ -7,14 +7,18 @@ import {
 import Home from '../Page/Home';
 import Header from '../Page/Header';
 import Blog from '../Page/Blog/Blog';
+import SignIn from '../Page/Users/SignIn';
+import SignUp from '../Page/Users/SignUp';
 
-export const Router = () => {
+export const Routes = () => {
   return (
     <BrowserRouter>
       <Header/>
       <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/blog' element={<Blog/>}/>
+          <Route path='/signin' element={<SignIn/>}/>
+          <Route path='/signup' element={<SignUp/>}/>
       </Routes>
     </BrowserRouter>
   )
