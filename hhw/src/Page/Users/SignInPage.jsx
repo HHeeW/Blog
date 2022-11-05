@@ -37,7 +37,7 @@ const SignInPage = () => {
                 로그인
             </h1>
             <p className='py-2'>
-                아직 회원에 가입하지 않으셨나요? <Link to='/signup' className='underline font-bold text-lg'>가입</Link> 하세요.
+                아직 회원에 가입하지 않으셨나요? <Link to='/signup' className='underline font-bold text-lg text-blue-500'>가입</Link> 하세요.
             </p>
         </div>
         <form>
