@@ -1,33 +1,43 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthProvider'
-import { validateEmail, removeWhitespace } from '../../utils/Valitate'
+import { validateEmail, removeWhitespace, validatePassword } from '../../utils/Valitate'
 
 const SignInPage = () => {
     
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  
-  const { signin } = useContext(AuthContext);
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    
+    const navigate = useNavigate()
+    const { signin } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    if(email) {
-        const changeemail = removeWhitespace(email);
-        if(!validateEmail(changeemail)){
-           console.log(validateEmail(changeemail))
-          alert('이메일 형식으로 입력하세요.');
-           return 
-        }  
-    }else{
-       alert('이메일을 입력하세요.');
-        return
+    const handleLogin = () => {
+        if(email) {
+            const changeemail = removeWhitespace(email);
+            if(!validateEmail(changeemail)){
+            console.log(validateEmail(changeemail))
+            alert('이메일 형식으로 입력하세요.');
+            return 
+            }  
+        }else{
+            alert('이메일을 입력하세요.');
+            return
+        }
+        if(!password) {
+            alert('비밀번호를 입력하세요.');
+            return
+        }
+        signin(email, password)
+        .then(()=>{
+            if(!!user ){navigate('/')}
+        })
     }
-    if(!password) {
-       alert('비밀번호를 입력하세요.');
-        return
-    }
-    signin(email, password)
-  }
+
+    // useEffect(()=>{
+    //     if(!!user ){navigate('/')}
+    // })
 
   return (
     <div className='container space-y-3'>
@@ -43,14 +53,21 @@ const SignInPage = () => {
         <form>
             <div className='flex flex-col py-2'>
                 <label className='py-2 font-medium'>이메일 주소</label>
-                <input type="email" className="border p-3 text-center"/>
+                <input type="email" className="border p-3 text-center" 
+                    placeholder='ID@email.com'
+                    onChange={(e)=>setEmail(e.target.value)}    
+                />
             </div>
             <div className='flex flex-col py-2'>
                 <label className='py-2 font-medium'>비밀번호</label>
-                <input type="password" className="border p-3 text-center"/>
+                <input type="password" className="border p-3 text-center" 
+                    placeholder='비밀번호'
+                    onChange={(e)=>setPassword(e.target.value)}
+                />
             </div>
-            <button className='border border-blue-500 bg-blue-800 
-                            hover:bg-blue-500 w-full p-4 my-2 text-white'>로그인</button>
+            <button className='border bg-blue-800 w-full p-4 my-2 text-white hover:bg-blue-500'
+                onClick={handleLogin}        
+            >로그인</button>
         </form>
     </div>
     </div>

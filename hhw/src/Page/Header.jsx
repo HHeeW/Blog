@@ -1,11 +1,31 @@
-import React, { useEffect } from 'react'
-
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useContext, useEffect } from 'react'
 import {
-  Link
+  Link, useNavigate
 } from "react-router-dom";
+import { AuthContext } from '../context/AuthProvider';
 import { auth } from '../Firebase';
 
 const Header = () => {
+  
+  const { user } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
+  const { signout } = useContext(AuthContext);
+
+  const navigate = useNavigate()
+
+  const Signout = () => {
+    signout()
+    navigate('/')
+  }
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (authuser)=>{
+      setUser(authuser)
+      console.log(user)
+    })
+  })
+
   return (
     <div className='w-full h-14 flex justify-center bg-gray-400'>
         <div className='w-3/4 max-w-6xl mx-auto flex justify-between items-center text-xl text-white'>
@@ -36,9 +56,20 @@ const Header = () => {
           </div>
           <div className='w-1/5'>
             <div className='flex justify-end'>
-              <Link to={'/signin'}>
-                <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>로그인</p>
-              </Link>
+              {!!user ?
+                <>
+                  <button type='button' onClick={Signout}>
+                      <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>로그아웃</p>
+                  </button>
+                  <Link to={'/signin'}>
+                    <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>내정보</p>
+                  </Link>
+                </>
+                :
+                <Link to={'/signin'}>
+                  <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>로그인</p>
+                </Link>
+              }
             </div>
           </div>
 

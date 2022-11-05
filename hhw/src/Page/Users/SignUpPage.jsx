@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthProvider';
 import { removeWhitespace, validateEmail, validatePassword } from '../../utils/Valitate';
 
-const SignUpPage = ({history}) => {
+const SignUpPage = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [echeck, setEcheck] = useState(false);
@@ -12,7 +12,10 @@ const SignUpPage = ({history}) => {
     const [repassword, setRepassword] = useState();
     const [rpcheck, setRpcheck] = useState(false);
 
+    const navigate = useNavigate()
     const { signup } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+
 
     const EmailCheck = (e) => {
         setEmail(e)
@@ -56,9 +59,13 @@ const SignUpPage = ({history}) => {
     const handleSignup = () => {
         signup(email, repassword, name)
         .then(()=>{
-            history.pushState('/signin')
+            if(!!user ){navigate('/')}
         })
       }
+
+    // useEffect(()=>{
+    //     if(!!user ){navigate('/')}
+    // })
 
   return (
     <div className='container'>
@@ -68,7 +75,7 @@ const SignUpPage = ({history}) => {
                 회원가입
             </h1>
             <p className='py-2'>
-                이미 회원에 가입하셨나요? 바로 <Link to='/signin' className='underline font-bold text-lg'>로그인</Link> 하세요.
+                이미 회원에 가입하셨나요? 바로 <Link to='/signin' className='underline font-bold text-lg text-blue-500'>로그인</Link> 하세요.
             </p>
         </div>
 
@@ -97,18 +104,18 @@ const SignUpPage = ({history}) => {
             <div className='flex flex-col py-2'>
                 <label className='py-2 font-medium'>비밀번호</label>
                 <input type="password" className="border p-3 text-center"
-                    placeholder='영어, 숫자, 문자 포함 8자 이상 16자 이하'
+                    placeholder='공백 제외 영어, 숫자, 문자 포함 8자 이상 16자 이하'
                     onChange={(e)=>PasswordCheck(e.target.value)}/>
             </div>
             {password ? pcheck ? <></> :
                 <p className="text-red-600">
-                    비밀번호 형식은 영어, 숫자, 문자 포함 8자 이상 16자 이하입니다.
+                    비밀번호 형식은 공백 제외 영어, 숫자, 문자 포함 8자 이상 16자 이하입니다.
                 </p>:<></>
             }
 
             <div className='flex flex-col py-2'>
                 <label className='py-2 font-medium'>비밀번호 확인</label>
-                <input type="password" name='repassword' className="border p-3 text-center"
+                <input type="password" className="border p-3 text-center"
                     placeholder='비밀번호 재입력'
                     onChange={(e)=>RePasswordCheck(e.target.value)}/>
             </div>
@@ -118,8 +125,7 @@ const SignUpPage = ({history}) => {
             }
 
             {echeck && pcheck && rpcheck && name ?
-                <button type="button" onClick={handleSignup} className='border bg-blue-800 
-                            hover:bg-blue-500 w-full p-4 my-2 text-white'>가입</button>
+                <button type="button" onClick={handleSignup} className='border bg-blue-800 w-full p-4 my-2 text-white'>가입</button>
                 :<button disabled className='border bg-gray-300 w-full p-4 my-2 text-white'>가입</button>
             }
 

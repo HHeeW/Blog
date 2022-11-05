@@ -24,9 +24,9 @@ export const AuthProvider = ({ children }) => {
   }
 
   //로그아웃
-  const logout = async() => {
+  const signout = async() => {
     try{
-        await signOut();
+        await signOut(auth);
     }catch(e){
         console.log(e)
     }
@@ -50,7 +50,10 @@ export const AuthProvider = ({ children }) => {
       .catch(error=> console.log('데이터저장중 에러발생', error))  
       })
     }catch(e){
-      console.log(e)
+      console.log('회원가입에러',e)
+      if(e == 'FirebaseError: Firebase: Error (auth/email-already-in-use).'){
+        alert('이메일이 이미 사용 중입니다.')  
+      }
     }
   }
 
@@ -79,7 +82,7 @@ export const AuthProvider = ({ children }) => {
   // }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, signin, signup, logout }}>
+    <AuthContext.Provider value={{ user, setUser, signin, signup, signout }}>
         { children }
     </AuthContext.Provider>
   )
