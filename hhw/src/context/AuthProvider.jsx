@@ -1,11 +1,12 @@
 import React, { createContext, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut
 } from 'firebase/auth';
 import { auth, db } from '../Firebase';
-import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 //import { GoogleSignin } fro 'community/google-signin
 //import { LoginManager, AccessToken } from 'react-fbsdk';
 
@@ -13,24 +14,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState([]);
   
-  //로그인
-  const signin = async ( email, password ) => {
-      try{
-         await signInWithEmailAndPassword(auth, email, password); 
-      }catch(e){
-         console.log(e);
-      }
-  }
-
-  //로그아웃
-  const signout = async() => {
-    try{
-        await signOut(auth);
-    }catch(e){
-        console.log(e)
-    }
-  }
+  
 
   //회원가입
   const signup = async(email, password, name) => {
@@ -51,11 +37,46 @@ export const AuthProvider = ({ children }) => {
       })
     }catch(e){
       console.log('회원가입에러',e)
-      if(e == 'FirebaseError: Firebase: Error (auth/email-already-in-use).'){
+      if(e === 'FirebaseError: Firebase: Error (auth/email-already-in-use).'){
         alert('이메일이 이미 사용 중입니다.')  
       }
     }
   }
+
+  //로그인
+  const signin = async ( email, password ) => {
+      try{
+         await signInWithEmailAndPassword(auth, email, password); 
+      }catch(e){
+         console.log(e);
+      }
+  }
+
+  /** 회원정보 */
+  const userimpl = async() => {
+    onAuthStateChanged(auth, (authuser)=>{
+      setUser(authuser)
+    })
+  }
+
+  //로그아웃
+  const signout = async() => {
+    try{
+        await signOut(auth);
+        setUser(null)
+        setUserInfo([])
+    }catch(e){
+        console.log(e)
+    }
+  }
+
+  /** 사용자 데이터 */
+  const userinfo = async()=>{
+    const querys = await getDoc(doc(db, 'Users', auth.currentUser.uid))
+    const data = querys.data()
+    setUserInfo(data)
+  }
+  
 
   //게시물 업로드
   // const postupload = async (post) => {
@@ -82,7 +103,7 @@ export const AuthProvider = ({ children }) => {
   // }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, signin, signup, signout }}>
+    <AuthContext.Provider value={{ user, setUser, signin, signup, signout, userimpl, userinfo, userInfo }}>
         { children }
     </AuthContext.Provider>
   )

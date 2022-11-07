@@ -1,16 +1,16 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import React, { useContext, useEffect } from 'react'
 import {
   Link, useNavigate
 } from "react-router-dom";
 import { AuthContext } from '../context/AuthProvider';
-import { auth } from '../Firebase';
 
 const Header = () => {
   
   const { user } = useContext(AuthContext);
-  const { setUser } = useContext(AuthContext);
   const { signout } = useContext(AuthContext);
+  const { userimpl } = useContext(AuthContext);
+  const { userinfo } = useContext(AuthContext);
+  const { userInfo } = useContext(AuthContext);
 
   const navigate = useNavigate()
 
@@ -20,9 +20,12 @@ const Header = () => {
   }
 
   useEffect(()=>{
-    onAuthStateChanged(auth, (authuser)=>{
-      setUser(authuser)
-      console.log(user)
+    userimpl().then(()=>{
+      if(!!user){
+        if(userInfo.length === 0){
+          userinfo()
+        }
+      }
     })
   })
 
@@ -61,7 +64,7 @@ const Header = () => {
                   <button type='button' onClick={Signout}>
                       <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>로그아웃</p>
                   </button>
-                  <Link to={'/signin'}>
+                  <Link to={'/userinfo'}>
                     <p className='rounded-full border-2 px-3 hover:text-gray-400 hover:bg-white'>내정보</p>
                   </Link>
                 </>
