@@ -1,8 +1,13 @@
 import React from 'react'
+import ListButton from './ListButton'
 
 const Blog = () => {
+
+    const listcount = 20
+    const listnum = Math.ceil(listcount / 9)
+
   return (
-    <div className='max-w-6xl mx-auto bg-slate-200'>
+    <div className='max-w-6xl mx-auto bg-slate-200 mb-32'>
         <div className='b-1 h-[200px]'>
             위치 || 리스트
         </div>
@@ -41,6 +46,7 @@ const Blog = () => {
                 </div>
             </div>
         </div>
+        <ListButton listnum={listnum} />
     </div>
   )
 }

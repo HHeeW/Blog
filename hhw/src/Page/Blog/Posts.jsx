@@ -2,7 +2,7 @@ import React from 'react'
 import Post from './Post'
 
 const Posts = () => {
-  const list = 12;
+  const list = 3;
   let lists = [];
   for(let i in list){
     lists[i] = 

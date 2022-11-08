@@ -27,7 +27,7 @@ const Header = () => {
         }
       }
     })
-  })
+  },[user])
 
   return (
     <div className='w-full h-14 flex justify-center bg-gray-400'>
