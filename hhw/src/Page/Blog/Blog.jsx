@@ -3,7 +3,7 @@ import ListButton from './ListButton'
 
 const Blog = () => {
 
-    const listcount = 20
+    const listcount = 100
     const listnum = Math.ceil(listcount / 9)
 
   return (
