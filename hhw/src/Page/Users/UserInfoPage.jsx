@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useContext, useState } from 'react'
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import { auth, db } from '../../Firebase';
 
@@ -15,7 +15,7 @@ const UserInfoPage = () => {
     tel: '',
     address: '',
   })
-
+console.log(userInfo)
   useEffect(()=>{
     if(userInfo.length !== 0){
       if(editeInfo.name.length === 0){
@@ -30,7 +30,7 @@ const UserInfoPage = () => {
   }
   },[userInfo])
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const save = () => {
     console.log(editeInfo)

@@ -1,5 +1,5 @@
-import React from 'react'
 import { AuthProvider } from '../context/AuthProvider'
+import React from 'react'
 import Router from './Router'
 
 const Providers = () => {
